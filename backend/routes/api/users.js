@@ -40,13 +40,16 @@ router.post('/', validateSignup, async (req, res) => {
   const hashedPassword = bcrypt.hashSync(password);
   
   // Create a new user
-  const user = await User.create({ email, username, hashedPassword });
+  const user = await User.create({ email, username, hashedPassword, firstName,
+    lastName });
 
   // Create a safe user object (without hashedPassword)
   const safeUser = {
     id: user.id,
     email: user.email,
     username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName
   };
 
   // Set the JWT cookie
